@@ -1,11 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="blocItOff">
 <head lang="en">
     <meta charset="UTF-8">
-    <title>Bloc Base Project</title>
+    <title>Bloc It Off</title>
     <link rel="stylesheet" href="/styles/main.css">
 </head>
 <body>
-    <script src="/scripts/app.js"></script>
+<!--===== CONTENT =====-->
+	<ui-view></ui-view>
+
+<!--===== SCRIPTS =====-->
+
+<!--** Dependencies **-->
+	<!-- Angular -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<!-- Angular UI Router -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.4.2/angular-ui-router.min.js"></script>
+	<!-- FireBase -->
+  <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+  <!-- AngularFire -->
+  <script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
+
+<!--** Initialize Firebase **-->
+	<script>
+	  var config = {
+	    apiKey: "AIzaSyBDZ1GtzjBoUQ22vyITPR6qQ5qlp-wmLOU",
+	    authDomain: "bloc-it-off-a47c1.firebaseapp.com",
+	    databaseURL: "https://bloc-it-off-a47c1.firebaseio.com",
+	    projectId: "bloc-it-off-a47c1",
+	    storageBucket: "bloc-it-off-a47c1.appspot.com",
+	    messagingSenderId: "165092190808"
+	  };
+	  firebase.initializeApp(config);
+	</script>
+
+<!--** Application Files **-->
+	<!-- app.js -->
+  <script src="/scripts/app.js"></script>
+	<!-- Controllers -->
+	<script src="/scripts/controllers/HomeCtrl.js"></script>
 </body>
 </html>
