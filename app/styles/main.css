@@ -1,0 +1,11 @@
+.form-group-new-task-description {
+	display: inline-block;
+	min-width: 49rem;
+	margin: auto;
+}
+
+.form-group-new-task-priority {
+	display: inline-block;
+	max-width: 12rem;
+	margin: auto;
+}

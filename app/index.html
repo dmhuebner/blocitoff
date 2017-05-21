@@ -16,7 +16,7 @@
 	<!-- Navigation Start -->
 	<nav class="navbar navbar-default">
 		<div class="container">
-			<a href="" class="navbar-brand navbar-left">Bloc It Off</a>
+			<a ui-sref="home" class="navbar-brand navbar-left">Bloc It Off</a>
 			<div class="navbar-right">
 				<button type="button" class="btn btn-success navbar-btn">Sign Up</button><button type="button" class="btn btn-default navbar-btn">Sign in</button>
 			</div>
@@ -32,6 +32,12 @@
 <!--===== SCRIPTS =====-->
 
 <!--** Dependencies **-->
+	<!-- jQuery CDN -->
+	<script
+			src="https://code.jquery.com/jquery-3.1.1.min.js"
+			integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+			crossorigin="anonymous">
+	</script>
 	<!-- Latest compiled and minified JavaScript | Bootstrap -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	<!-- Angular -->
@@ -59,7 +65,10 @@
 <!--** Application Files **-->
 	<!-- app.js -->
   <script src="/scripts/app.js"></script>
+	<!-- Services -->
+	<script src="/scripts/services/Task.js"></script>
 	<!-- Controllers -->
 	<script src="/scripts/controllers/HomeCtrl.js"></script>
+	<script src="/scripts/controllers/TaskCtrl.js"></script>
 </body>
 </html>
