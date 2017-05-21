@@ -3,21 +3,21 @@
 		<h2 class="text-center">My To Do List</h2>
 		<br />
 		<section class="text-center">
-			<h4 class="text-center">Add New Task</h4>
+			<h4 class="text-center">Add a New Task</h4>
 			<form class="form new-task-form">
 				<div class="form-group form-group-lg form-group-new-task-description">
 					<label class="sr-only" for="taskDescriptionInput">Description</label>
-					<input type="text" class="form-control" id="taskDescriptionInput" placeholder="Enter task description" ng-model="Task.newTask.description" />
+					<input type="text" class="form-control task-form-input" id="taskDescriptionInput" placeholder="Enter task description" ng-model="task.newTask.description" />
 				</div>
 				<div class="form-group form-group-lg form-group-new-task-priority">
 					<label class="sr-only" for="taskPriorityInput">Priority</label>
-					<input type="text" class="form-control" id="taskPriorityInput" placeholder="Priority" ng-model="Task.newTask.priority" />
+					<input type="text" class="form-control task-form-input" id="taskPriorityInput" placeholder="Priority" ng-model="task.newTask.priority" />
 				</div>
-				<button type="submit" class="btn btn-success btn-lg" ng-click="task.addTask(prepareNewTask())">Add Task</button>
+				<button type="submit" class="btn btn-success btn-lg" ng-click="task.Task.addTask(task.newTask)">Add Task</button>
 			</form>
 		</section>
-		{{Task.newTask.description}} |
-		{{Task.newTask.priority}}
+		<!-- {{task.newTask.description}}
+		{{task.newTask.priority}} -->
 		<hr />
 		<br />
 		<ul class="nav nav-tabs nav-justified">
@@ -40,7 +40,6 @@
 				</tr>
 			</tbody>
 		</table>
-		<!-- {{task.tasks[0].description}}
-		{{task.test}} -->
+		<!-- {{task.test}} -->
 	</div>
 </div>

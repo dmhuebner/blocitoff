@@ -14,27 +14,69 @@
 		*/
 		$ctrl.Task = Task;
 
+		// /**
+		// * @desc CurrentTime Service
+		// * @type {Object} | Value
+		// */
+		// $ctrl.CurrentTime = CurrentTime;
+
+		/**
+		* @desc Declare newMessage property
+		* @type {Object}
+		*/
+		$ctrl.newTask = null;
+
 		/**
 		* @desc all tasks | from Task Service
 		* @type {Object}
 		*/
 		$ctrl.tasks = $ctrl.Task.all
 
-		$ctrl.prepareNewTask = function() {
-			// TODO get current time
+		/*===== Utility Functions =====*/
+		/**
+		* @function getCurrentTimeStamp
+		* @desc Gets current time in proper format
+		* @param {boolean} expiration | true/false
+		*/
+		$ctrl.getCurrentTimeStamp = function(expiration) {
+			var currentDate = new Date();
+			var dateStamp = currentDate;
+			var currentHours = currentDate.getHours();
+			var currentMinutes = currentDate.getMinutes();
+			var amTrue = true;
 
-			return {
-				description: $ctrl.Task.newTask.description,
-				priority: $ctrl.Task.newTask.priority,
-				status: $ctrl.Task.newTask.status,
-				createdAt: $ctrl.Task.newTask.createdAt
-			};
+			if (currentMinutes < 10) {
+					currentMinutes = '0' + currentMinutes;
+			}
+
+			if (currentHours > 12) {
+					currentHours = (currentHours - 12);
+					amTrue = false;
+			}
+
+			var currentTime = (currentHours + ':' + currentMinutes);
+
+			if (amTrue) {
+					currentTime += 'am';
+			} else {
+					currentTime += 'pm';
+			}
+
+			if (expiration) {
+				return dateStamp.setDate(dateStamp.getDate() + 7);
+			} else {
+				// return currentTime;
+				return dateStamp.toString();
+			}
 		};
 
-		$ctrl.addTask = function(newTask) {
-			Task.all.$add(newTask).then(function() {
-				Task.all.$save(newTask);
-			})
+		/*===== Models =====*/
+		$ctrl.newTask = {
+			description: '',
+			priority: '',
+			status: 'active',
+			createdAt: $ctrl.getCurrentTimeStamp(),
+			expiresOn: $ctrl.getCurrentTimeStamp(true)
 		};
 	}
 
