@@ -3,7 +3,6 @@
 		var ref = firebase.database().ref().child("tasks");
 		var tasks = $firebaseArray(ref);
 
-
 		return {
 			all: tasks,
 			addTask: function(newTask) {
@@ -15,8 +14,13 @@
 				} else {
 					alert("There was an error saving the task.");
 				}
+			},
+			getByStatus: function(status) {
+				var tempRef = ref.orderByChild('status').equalTo(status);
+				var taskByStatus = null;
+				taskByStatus = $firebaseArray(tempRef);
+				return taskByStatus;
 			}
-			// TODO implement getByStatus method
 			// TODO implement check if expired method
 		}
 	}

@@ -27,10 +27,28 @@
 		$ctrl.newTask = null;
 
 		/**
-		* @desc all tasks | from Task Service
+		* @desc allTasks | from Task Service
 		* @type {Object}
 		*/
-		$ctrl.tasks = $ctrl.Task.all
+		$ctrl.allTasks = $ctrl.Task.all
+
+		/**
+		* @desc activeTasks | from Task Service
+		* @type {Object}
+		*/
+		$ctrl.activeTasks = $ctrl.Task.getByStatus('active');
+
+		/**
+		* @desc expiredTasks | from Task Service
+		* @type {Object}
+		*/
+		$ctrl.expiredTasks = $ctrl.Task.getByStatus('expired');
+
+		/**
+		* @desc completedTasks | from Task Service
+		* @type {Object}
+		*/
+		$ctrl.completedTasks = $ctrl.Task.getByStatus('complete');
 
 		/*===== Utility Functions =====*/
 		/**
