@@ -50,6 +50,8 @@
 		*/
 		$ctrl.completedTasks = $ctrl.Task.getByStatus('complete');
 
+		$ctrl.saveTask = $ctrl.Task.saveTask;
+
 		/*===== Utility Functions =====*/
 		/**
 		* @function getCurrentTimeStamp
@@ -59,32 +61,44 @@
 		$ctrl.getCurrentTimeStamp = function(expiration) {
 			var currentDate = new Date();
 			var dateStamp = currentDate;
-			var currentHours = currentDate.getHours();
-			var currentMinutes = currentDate.getMinutes();
-			var amTrue = true;
-
-			if (currentMinutes < 10) {
-					currentMinutes = '0' + currentMinutes;
-			}
-
-			if (currentHours > 12) {
-					currentHours = (currentHours - 12);
-					amTrue = false;
-			}
-
-			var currentTime = (currentHours + ':' + currentMinutes);
-
-			if (amTrue) {
-					currentTime += 'am';
-			} else {
-					currentTime += 'pm';
-			}
 
 			if (expiration) {
 				return dateStamp.setDate(dateStamp.getDate() + 7);
+				// return dateStamp.setSeconds(dateStamp.getSeconds() + 10);
 			} else {
 				// return currentTime;
-				return dateStamp.toString();
+				return dateStamp.setDate(dateStamp.getDate());
+			}
+		};
+
+		$ctrl.currentTime = $ctrl.getCurrentTimeStamp();
+		// console.log($ctrl.currentTime);
+		//
+		// $ctrl.expireTask = function(task) {
+		// 	if (task.expiresOn >= Date().getDate()) {
+		//
+		// 	}
+		// };
+
+		$ctrl.checkExpirationDate = function(task) {
+			if (task.expiresOn <= $ctrl.currentTime) {
+				$ctrl.saveTask(task);
+				console.log(task);
+				return true;
+			} else {
+				return false;
+			}
+		};
+
+		for (var i = 0; i < $ctrl.Task.all.length; i++) {
+			$ctrl.checkExpirationDate($ctrl.Task.all[i]);
+		}
+
+		$ctrl.checkExpiration = function(task) {
+			if (task.status == "expired") {
+				return true;
+ 			} else {
+				return false;
 			}
 		};
 

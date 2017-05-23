@@ -34,12 +34,13 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="task in task.activeTasks | orderBy:'-'">
-					<td>{{task.description}}</td>
-					<td width="20%">{{task.priority}}</td>
+				<tr ng-repeat="t in task.activeTasks | orderBy:'-'" ng-hide="task.checkExpirationDate(t)">
+					<td>{{t.description}}</td>
+					<td width="20%">{{t.priority}}</td>
 				</tr>
 			</tbody>
 		</table>
+		<!-- {{task.currentTime}} -->
 		<!-- {{task.test}} -->
 	</div>
 </div>

@@ -15,6 +15,15 @@
 					alert("There was an error saving the task.");
 				}
 			},
+			saveTask: function(task) {
+
+				for (var i = 0; i < tasks.length; i++) {
+					if (tasks[i].$id === task.$id) {
+						tasks[i].status = "expired";
+					}
+				}
+				tasks.$save(task);
+			},
 			getByStatus: function(status) {
 				var tempRef = ref.orderByChild('status').equalTo(status);
 				var taskByStatus = null;
