@@ -2,6 +2,9 @@
 	function TaskCtrl(Task) {
 		var $ctrl = this;
 
+		var seven_days = 604800000;
+    var one_day = 86400000;
+
 		/**
 		* @desc test object
 		* @type {Object}
@@ -13,12 +16,6 @@
 		* @type {Object} | Service
 		*/
 		$ctrl.Task = Task;
-
-		// /**
-		// * @desc CurrentTime Service
-		// * @type {Object} | Value
-		// */
-		// $ctrl.CurrentTime = CurrentTime;
 
 		/**
 		* @desc Declare newMessage property
@@ -32,69 +29,33 @@
 		*/
 		$ctrl.allTasks = $ctrl.Task.all
 
-		/**
-		* @desc activeTasks | from Task Service
-		* @type {Object}
-		*/
-		$ctrl.activeTasks = $ctrl.Task.getByStatus('active');
-
-		/**
-		* @desc expiredTasks | from Task Service
-		* @type {Object}
-		*/
-		$ctrl.expiredTasks = $ctrl.Task.getByStatus('expired');
-
-		/**
-		* @desc completedTasks | from Task Service
-		* @type {Object}
-		*/
-		$ctrl.completedTasks = $ctrl.Task.getByStatus('complete');
-
-		/*===== Utility Functions =====*/
-		/**
-		* @function getCurrentTimeStamp
-		* @desc Gets current time in proper format
-		* @param {boolean} expiration | true/false
-		*/
-		$ctrl.getCurrentTimeStamp = function(expiration) {
-			var currentDate = new Date();
-			var dateStamp = currentDate;
-			var currentHours = currentDate.getHours();
-			var currentMinutes = currentDate.getMinutes();
-			var amTrue = true;
-
-			if (currentMinutes < 10) {
-					currentMinutes = '0' + currentMinutes;
-			}
-
-			if (currentHours > 12) {
-					currentHours = (currentHours - 12);
-					amTrue = false;
-			}
-
-			var currentTime = (currentHours + ':' + currentMinutes);
-
-			if (amTrue) {
-					currentTime += 'am';
-			} else {
-					currentTime += 'pm';
-			}
-
-			if (expiration) {
-				return dateStamp.setDate(dateStamp.getDate() + 7);
-			} else {
-				// return currentTime;
-				return dateStamp.toString();
-			}
-		};
 
 		/*===== Models =====*/
 		$ctrl.newTask = {
 			description: '',
 			priority: '',
-			status: 'active',
-			createdAt: $ctrl.getCurrentTimeStamp(),
-			expiresOn: $ctrl.getCurrentTimeStamp(true)
+			createdAt: firebase.database.ServerValue.TIMESTAMP,
+			completed: false
+		};
+
+		/*===== Controller Methods =====*/
+		/**
+		* @function expired()
+		* @desc Determines if task is expired
+		* @param {Object} task
+		*/
+		$ctrl.expired = function(task) {
+			var currentTime = new Date().getTime();
+			return ( ((task.createdAt + seven_days) - currentTime) <= 0 )
+		};
+
+		/**
+		* @function completed()
+		* @desc Determines if task is completed
+		* @param {Object} task
+		*/
+		$ctrl.completed = function(task) {
+			return task.completed == true;
 		};
 	}
 

@@ -14,14 +14,7 @@
 				} else {
 					alert("There was an error saving the task.");
 				}
-			},
-			getByStatus: function(status) {
-				var tempRef = ref.orderByChild('status').equalTo(status);
-				var taskByStatus = null;
-				taskByStatus = $firebaseArray(tempRef);
-				return taskByStatus;
 			}
-			// TODO implement check if expired method
 		}
 	}
 
