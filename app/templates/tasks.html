@@ -34,9 +34,13 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="t in task.activeTasks | orderBy:'-'" ng-hide="task.checkExpirationDate(t)">
+				<tr ng-repeat="t in task.allTasks" ng-hide="task.expired(t) || task.completed(t)">
 					<td>{{t.description}}</td>
-					<td width="20%">{{t.priority}}</td>
+					<td width="20%">{{t.priority}}
+						<span ng-show="t.priority == 'High'" class="glyphicon glyphicon-alert" aria-hidden="true" style="color: red"></span>
+						<span ng-show="t.priority == 'Med'" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: #ffd11a"></span>
+						<span ng-show="t.priority == 'Low'" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: green"></span>
+					</td>
 				</tr>
 			</tbody>
 		</table>
