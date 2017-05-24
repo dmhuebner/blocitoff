@@ -38,6 +38,13 @@
 			completed: false
 		};
 
+		$ctrl.priorityMap = {
+			0: "Low",
+			1: "Med",
+			2: "High"
+		};
+
+
 		/*===== Controller Methods =====*/
 		/**
 		* @function expired()
