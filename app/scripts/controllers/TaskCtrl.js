@@ -45,6 +45,7 @@
 		};
 
 
+
 		/*===== Controller Methods =====*/
 		/**
 		* @function expired()
@@ -63,6 +64,19 @@
 		*/
 		$ctrl.completed = function(task) {
 			return task.completed == true;
+		};
+
+		$ctrl.dateFormat = function(date) {
+			var string = '';
+			var today = new Date();
+			var diff = today - date;
+			var daysAgo = Math.floor((today - date) / (1000*60*60*24));
+			if (daysAgo > 1 || daysAgo === 0) {
+				string = "days";
+			} else {
+				string = "day";
+			}
+			return daysAgo + " " + string + " ago";
 		};
 	}
 
