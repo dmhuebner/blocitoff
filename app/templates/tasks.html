@@ -11,7 +11,13 @@
 				</div>
 				<div class="form-group form-group-lg form-group-new-task-priority">
 					<label class="sr-only" for="taskPriorityInput">Priority</label>
-					<input type="text" class="form-control task-form-input" id="taskPriorityInput" placeholder="Priority" ng-model="task.newTask.priority" />
+					<!-- <input type="text" class="form-control task-form-input" id="taskPriorityInput" placeholder="Priority" ng-model="task.newTask.priority" /> -->
+					<select class="form-control task-form-input" id="taskPriorityInput" ng-model="task.newTask.priority">
+						<option value="" selected>Priority?</option>
+						<option value="2">{{task.priorityMap[2]}}</option>
+						<option value="1">{{task.priorityMap[1]}}</option>
+						<option value="0">{{task.priorityMap[0]}}</option>
+					</select>
 				</div>
 				<button type="submit" class="btn btn-success btn-lg" ng-click="task.Task.addTask(task.newTask)">Add Task</button>
 			</form>
@@ -20,13 +26,14 @@
 		{{task.newTask.priority}} -->
 		<hr />
 		<br />
-		<ul class="nav nav-tabs nav-justified">
-  		<li role="presentation" class="active"><a href="#">Current Tasks</a></li>
-  		<li role="presentation"><a href="#">Expired Tasks</a></li>
-  		<li role="presentation"><a href="#">Completed Tasks</a></li>
+		<ul class="nav nav-tabs nav-justified" ng-init="tab = 1">
+  		<li role="presentation" ng-class="{active: tab == 1}"><a href="#" ng-click="tab = 1">Current Tasks</a></li>
+  		<li role="presentation" ng-class="{active: tab == 2}"><a href="#" ng-click="tab = 2">Expired Tasks</a></li>
+  		<li role="presentation" ng-class="{active: tab == 3}"}><a href="#" ng-click="tab = 3">Completed Tasks</a></li>
 		</ul>
 		<br />
-		<table class="table">
+		<!-- Current Tasks Table -->
+		<table class="table" ng-show="tab === 1">
 			<thead>
 				<tr>
 					<th>Task Description</th>
@@ -36,10 +43,50 @@
 			<tbody>
 				<tr ng-repeat="t in task.allTasks" ng-hide="task.expired(t) || task.completed(t)">
 					<td>{{t.description}}</td>
-					<td width="20%">{{t.priority}}
-						<span ng-show="t.priority == 'High'" class="glyphicon glyphicon-alert" aria-hidden="true" style="color: red"></span>
-						<span ng-show="t.priority == 'Med'" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: #ffd11a"></span>
-						<span ng-show="t.priority == 'Low'" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: green"></span>
+					<td width="20%">{{task.priorityMap[t.priority]}}
+						<span ng-show="t.priority == 2" class="glyphicon glyphicon-alert" aria-hidden="true" style="color: red"></span>
+						<span ng-show="t.priority == 1" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: #ffd11a"></span>
+						<span ng-show="t.priority == 0" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: green"></span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<!-- Expired Tasks Table -->
+		<table class="table" ng-show="tab === 2">
+			<thead>
+				<tr>
+					<th width="60%">Task Description</th>
+					<th width="20%">Priority</th>
+					<th width="20%">Created</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="t in task.allTasks" ng-hide="!task.expired(t) || task.completed(t)">
+					<td>{{t.description}}</td>
+					<td width="20%">{{task.priorityMap[t.priority]}}
+						<span ng-show="t.priority == 2" class="glyphicon glyphicon-alert" aria-hidden="true" style="color: red"></span>
+						<span ng-show="t.priority == 1" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: #ffd11a"></span>
+						<span ng-show="t.priority == 0" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: green"></span>
+					</td>
+					<td>{{task.dateFormat(t.createdAt)}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<!-- Completed Tasks Table -->
+		<table class="table" ng-show="tab === 3">
+			<thead>
+				<tr>
+					<th>Task Description</th>
+					<th width="20%">Priority</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="t in task.allTasks" ng-hide="task.expired(t) || !task.completed(t)">
+					<td>{{t.description}}</td>
+					<td width="20%">{{task.priorityMap[t.priority]}}
+						<span ng-show="t.priority == 2" class="glyphicon glyphicon-alert" aria-hidden="true" style="color: red"></span>
+						<span ng-show="t.priority == 1" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: #ffd11a"></span>
+						<span ng-show="t.priority == 0" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: green"></span>
 					</td>
 				</tr>
 			</tbody>
