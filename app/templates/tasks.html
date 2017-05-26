@@ -37,16 +37,25 @@
 			<thead>
 				<tr>
 					<th>Task Description</th>
-					<th width="20%">Priority</th>
+					<th width="15%">Priority</th>
+					<!-- <th></th> -->
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="t in task.allTasks" ng-hide="task.expired(t) || task.completed(t)">
-					<td>{{t.description}}</td>
-					<td width="20%">{{task.priorityMap[t.priority]}}
-						<span ng-show="t.priority == 2" class="glyphicon glyphicon-alert" aria-hidden="true" style="color: red"></span>
+				<tr ng-repeat="t in task.allTasks | orderBy: '-priority'" ng-hide="task.expired(t) || task.completed(t)" ng-mouseover="hovered = true" ng-mouseleave="hovered = false">
+					<td class="task-description">{{t.description}}</td>
+					<td class="task-priority" width="15%">{{task.priorityMap[t.priority]}}
+						<span ng-show="t.priority == 2" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: red"></span>
 						<span ng-show="t.priority == 1" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: #ffd11a"></span>
 						<span ng-show="t.priority == 0" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: green"></span>
+					</td>
+<!-- Custom sorting arrows -->
+					<!-- <td width="4%" class="task-priority-arrows" ng-show="hovered">
+						<span class="glyphicon glyphicon-triangle-top"></span>
+						<span class="glyphicon glyphicon-triangle-bottom"></span>
+					</td> -->
+						<!-- Placeholder -->
+					<!-- <td width="4%" ng-show="!hovered"> -->
 					</td>
 				</tr>
 			</tbody>
@@ -56,15 +65,15 @@
 			<thead>
 				<tr>
 					<th width="60%">Task Description</th>
-					<th width="20%">Priority</th>
-					<th width="20%">Created</th>
+					<th width="10%">Priority</th>
+					<th width="10%">Created</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr ng-repeat="t in task.allTasks" ng-hide="!task.expired(t) || task.completed(t)">
 					<td>{{t.description}}</td>
-					<td width="20%">{{task.priorityMap[t.priority]}}
-						<span ng-show="t.priority == 2" class="glyphicon glyphicon-alert" aria-hidden="true" style="color: red"></span>
+					<td width="10%">{{task.priorityMap[t.priority]}}
+						<span ng-show="t.priority == 2" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: red"></span>
 						<span ng-show="t.priority == 1" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: #ffd11a"></span>
 						<span ng-show="t.priority == 0" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: green"></span>
 					</td>
@@ -84,7 +93,7 @@
 				<tr ng-repeat="t in task.allTasks" ng-hide="task.expired(t) || !task.completed(t)">
 					<td>{{t.description}}</td>
 					<td width="20%">{{task.priorityMap[t.priority]}}
-						<span ng-show="t.priority == 2" class="glyphicon glyphicon-alert" aria-hidden="true" style="color: red"></span>
+						<span ng-show="t.priority == 2" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: red"></span>
 						<span ng-show="t.priority == 1" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: #ffd11a"></span>
 						<span ng-show="t.priority == 0" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: green"></span>
 					</td>

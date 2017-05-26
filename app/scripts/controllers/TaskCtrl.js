@@ -11,6 +11,7 @@
 		*/
 		$ctrl.test = "Testing main controller";
 
+		/*===== Services =====*/
 		/**
 		* @desc Task Service
 		* @type {Object} | Service
@@ -27,8 +28,21 @@
 		* @desc allTasks | from Task Service
 		* @type {Object}
 		*/
-		$ctrl.allTasks = $ctrl.Task.all
+		$ctrl.allTasks = $ctrl.Task.all;
 
+		$ctrl.tasksLength = null;
+
+		$ctrl.newTask = {};
+
+		$ctrl.getTasksLength = function() {
+			$ctrl.allTasks.$loaded().then(function() {
+				$ctrl.tasksLength = $ctrl.allTasks.length;
+			});
+		};
+
+		$ctrl.getTasksLength();
+
+		// $ctrl.tasksLength = $ctrl.getTasksLength();
 
 		/*===== Models =====*/
 		$ctrl.newTask = {
@@ -37,13 +51,13 @@
 			createdAt: firebase.database.ServerValue.TIMESTAMP,
 			completed: false
 		};
+			// order: $ctrl.tasksLength + 1
 
 		$ctrl.priorityMap = {
 			0: "Low",
 			1: "Med",
 			2: "High"
 		};
-
 
 
 		/*===== Controller Methods =====*/
@@ -78,6 +92,7 @@
 			}
 			return daysAgo + " " + string + " ago";
 		};
+
 	}
 
 	angular
