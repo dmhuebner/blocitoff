@@ -49,9 +49,9 @@
 			description: '',
 			priority: '',
 			createdAt: firebase.database.ServerValue.TIMESTAMP,
-			completed: false,
-			order: $ctrl.tasksLength + 1
+			completed: false
 		};
+			// order: $ctrl.tasksLength + 1
 
 		$ctrl.priorityMap = {
 			0: "Low",
