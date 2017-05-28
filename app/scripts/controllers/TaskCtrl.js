@@ -45,6 +45,10 @@
 		// $ctrl.tasksLength = $ctrl.getTasksLength();
 
 		/*===== Models =====*/
+		/**
+		* @desc newTask
+		* @type {Object} | Model
+		*/
 		$ctrl.newTask = {
 			description: '',
 			priority: '',
@@ -53,6 +57,10 @@
 		};
 			// order: $ctrl.tasksLength + 1
 
+		/**
+		* @desc priorityMap
+		* @type {Object} | Model
+		*/
 		$ctrl.priorityMap = {
 			0: "Low",
 			1: "Med",
