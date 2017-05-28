@@ -1,0 +1,39 @@
+/* Small devices (tablets, 768px) */
+@media (max-width: 768px) {
+
+	.task-item-link {
+		font-size: 1.7rem;
+		height: 5rem;
+	}
+
+	.task-item-priority {
+		font-size: 1.3rem;
+	}
+
+	.task-item:hover,
+	.task-item-link:hover {
+		font-size: 2rem;
+		height: 6rem;
+	}
+
+	.task-list-label-tasks,
+	.task-list-label-priority,
+	.task-list-label-created-at {
+		font-size: 1.7rem;
+	}
+
+}
+
+/* Medium devices (desktops, 992px and down) */
+@media (max-width: 992px) {
+
+
+
+}
+
+/* Large devices (large desktops, 1200px and down) */
+@media (max-width: 1200px) {
+
+
+
+}
