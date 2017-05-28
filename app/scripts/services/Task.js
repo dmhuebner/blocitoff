@@ -19,6 +19,15 @@
     		var element = arr[fromIndex];
     		arr.splice(fromIndex, 1);
     		arr.splice(toIndex, 0, element);
+			},
+			completeTask: function(task) {
+				if (task.completed == false) {
+					task.completed = true;
+					tasks.$save(task);
+				} else {
+					task.completed = false;
+					tasks.$save(task);
+				}
 			}
 		}
 	}

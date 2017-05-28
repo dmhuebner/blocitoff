@@ -43,7 +43,7 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="t in task.allTasks | orderBy: '-priority'" ng-hide="task.expired(t) || task.completed(t)" ng-mouseover="hovered = true" ng-mouseleave="hovered = false">
-					<td class="task-description">{{t.description}}</td>
+					<td class="task-description"><a href="#" ng-click="task.Task.completeTask(t)">{{t.description}}</a></td>
 					<td class="task-priority" width="15%">{{task.priorityMap[t.priority]}}
 						<span ng-show="t.priority == 2" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: red"></span>
 						<span ng-show="t.priority == 1" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: #ffd11a"></span>
@@ -71,7 +71,7 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="t in task.allTasks" ng-hide="!task.expired(t) || task.completed(t)">
-					<td>{{t.description}}</td>
+					<td><a href="#" ng-click="task.Task.completeTask(t)">{{t.description}}</a></td>
 					<td width="10%">{{task.priorityMap[t.priority]}}
 						<span ng-show="t.priority == 2" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: red"></span>
 						<span ng-show="t.priority == 1" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: #ffd11a"></span>
@@ -90,8 +90,8 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="t in task.allTasks" ng-hide="task.expired(t) || !task.completed(t)">
-					<td>{{t.description}}</td>
+				<tr ng-repeat="t in task.allTasks" ng-hide="!task.completed(t)">
+					<td><a href="#" ng-click="task.Task.completeTask(t)">{{t.description}}</a></td>
 					<td width="20%">{{task.priorityMap[t.priority]}}
 						<span ng-show="t.priority == 2" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: red"></span>
 						<span ng-show="t.priority == 1" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: #ffd11a"></span>
