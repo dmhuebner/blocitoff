@@ -1,108 +1,105 @@
-<div class="row">
-	<div class="col-md-8 col-md-offset-2 tasks-section">
-		<h2 class="text-center tasks-header">My To Do List</h2>
-		<br />
-		<section class="new-task-form-section text-center">
-			<h4 class="text-center tasks-header">Add a New Task</h4>
-			<form class="form new-task-form">
-				<div class="form-group form-group-lg form-group-new-task-description">
-					<label class="sr-only" for="taskDescriptionInput">Description</label>
-					<input type="text" class="form-control task-form-input" id="taskDescriptionInput" placeholder="Enter task description" ng-model="task.newTask.description" />
-				</div>
-				<div class="form-group form-group-lg form-group-new-task-priority">
-					<label class="sr-only" for="taskPriorityInput">Priority</label>
-					<!-- <input type="text" class="form-control task-form-input" id="taskPriorityInput" placeholder="Priority" ng-model="task.newTask.priority" /> -->
-					<select class="form-control task-form-input" id="taskPriorityInput" ng-model="task.newTask.priority">
-						<option value="" selected>Priority</option>
-						<option value="2">{{task.priorityMap[2]}}</option>
-						<option value="1">{{task.priorityMap[1]}}</option>
-						<option value="0">{{task.priorityMap[0]}}</option>
-					</select>
-				</div>
-				<button type="submit" class="btn btn-success btn-lg new-task-button" ng-click="task.Task.addTask(task.newTask)">Add Task</button>
-			</form>
-		</section>
-		<!-- {{task.newTask.description}}
-		{{task.newTask.priority}} -->
-		<section class="tasks-display-section">
-			<hr />
+<!-- Navigation Start -->
+<nav class="navbar navbar-default main-nav">
+	<div class="container">
+		<a ui-sref="home" class="navbar-brand navbar-left navbar-home">Bloc It Off</a>
+		<div class="navbar-right">
+			<button type="submit" class="btn btn-success navbar-btn" ng-click="home.test()">Sign Up</button><button type="button" class="btn btn-default navbar-btn">Sign in</button>
+		</div>
+		<!-- <p class="navbar-text navbar-right">Signed in as <a href="#" class="navbar-link">Mark Otto</a></p> -->
+	</div>
+</nav>
+<!-- Navigation End -->
+test
+{{task.User.uid}}
+<div class="container">
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2 tasks-section">
+			<h2 class="text-center tasks-header">My To Do List</h2>
 			<br />
-			<ul class="nav nav-tabs nav-justified" ng-init="tab = 1">
-	  		<li role="presentation" ng-class="{active: tab == 1}"><a href="#" ng-click="tab = 1">Current Tasks</a></li>
-	  		<li role="presentation" ng-class="{active: tab == 2}"><a href="#" ng-click="tab = 2">Expired Tasks</a></li>
-	  		<li role="presentation" ng-class="{active: tab == 3}"}><a href="#" ng-click="tab = 3">Completed Tasks</a></li>
-			</ul>
-			<br />
+			<section class="new-task-form-section text-center">
+				<h4 class="text-center tasks-header">Add a New Task</h4>
+				<form class="form new-task-form">
+					<div class="form-group form-group-lg form-group-new-task-description">
+						<label class="sr-only" for="taskDescriptionInput">Description</label>
+						<input type="text" class="form-control task-form-input" id="taskDescriptionInput" placeholder="Enter task description" ng-model="task.newTask.description" />
+					</div>
+					<div class="form-group form-group-lg form-group-new-task-priority">
+						<label class="sr-only" for="taskPriorityInput">Priority</label>
+						<!-- <input type="text" class="form-control task-form-input" id="taskPriorityInput" placeholder="Priority" ng-model="task.newTask.priority" /> -->
+						<select class="form-control task-form-input" id="taskPriorityInput" ng-model="task.newTask.priority">
+							<option value="" selected>Priority</option>
+							<option value="2">{{task.priorityMap[2]}}</option>
+							<option value="1">{{task.priorityMap[1]}}</option>
+							<option value="0">{{task.priorityMap[0]}}</option>
+						</select>
+					</div>
+					<button type="submit" class="btn btn-success btn-lg new-task-button" ng-click="task.Task.addTask(task.newTask)">Add Task</button>
+				</form>
+			</section>
+			<!-- {{task.newTask.description}}
+			{{task.newTask.priority}} -->
+			<section class="tasks-display-section">
+				<hr />
+				<br />
+				<ul class="nav nav-tabs nav-justified" ng-init="tab = 1">
+		  		<li role="presentation" ng-class="{active: tab == 1}"><a href="#" ng-click="tab = 1">Current Tasks</a></li>
+		  		<li role="presentation" ng-class="{active: tab == 2}"><a href="#" ng-click="tab = 2">Expired Tasks</a></li>
+		  		<li role="presentation" ng-class="{active: tab == 3}"}><a href="#" ng-click="tab = 3">Completed Tasks</a></li>
+				</ul>
+				<br />
 
-			<!-- Current Tasks Table -->
-			<div class="group">
-				<h4 class="task-list-label-tasks pull-left">Tasks</h4>
-				<h4 class="task-list-label-created-at pull-right" ng-show="tab === 2">Created</h4>
-				<h4 class="task-list-label-priority pull-right">Priority</h4>
-			</div>
-			<ul class="task-list" ng-show="tab === 1">
-				<li class="task-item" ng-repeat="t in task.allTasks | orderBy: '-priority'" ng-hide="task.expired(t) || task.completed(t)" ng-mouseover="hovered = true" ng-mouseleave="hovered = false">
-					<a class="btn btn-default task-item-link" href="#" ng-click="task.Task.completeTask(t)">{{t.description}}
-						<span class="task-item-priority pull-right">
-						{{task.priorityMap[t.priority]}}
-						<span ng-show="t.priority == 2" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: red"></span>
-						<span ng-show="t.priority == 1" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: #ffd11a"></span>
-						<span ng-show="t.priority == 0" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: green"></span>
-					</span>
-				</a>
-				</li>
-			</ul>
-
-			<!-- Expired Tasks Table -->
-			<ul class="task-list" ng-show="tab === 2">
-				<li class="task-item" ng-repeat="t in task.allTasks" ng-hide="!task.expired(t) || task.completed(t)" ng-mouseover="hovered = true" ng-mouseleave="hovered = false">
-					<a class="btn btn-default task-item-link" href="#" ng-click="task.Task.completeTask(t)">{{t.description}}
-						<span class="pull-right task-item-created-at"> {{task.dateFormat(t.createdAt)}}</span>
-						<span class="task-item-priority pull-right">
-						{{task.priorityMap[t.priority]}}
-						<span ng-show="t.priority == 2" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: red"></span>
-						<span ng-show="t.priority == 1" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: #ffd11a"></span>
-						<span ng-show="t.priority == 0" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: green"></span>
-					</span>
-				</a>
-				</li>
-			</ul>
-
-			<!-- Completed Tasks Table -->
-			<ul class="task-list" ng-show="tab === 3">
-				<li class="task-item" ng-repeat="t in task.allTasks" ng-hide="!task.completed(t)" ng-mouseover="hovered = true" ng-mouseleave="hovered = false">
-					<a class="btn btn-default task-item-link" href="#" ng-click="task.Task.completeTask(t)">
-						<span class="pull-left glyphicon glyphicon-ok" aria-hidden="true"></span>
-						{{t.description}}
-						<span class="task-item-priority pull-right">
-						{{task.priorityMap[t.priority]}}
-						<span ng-show="t.priority == 2" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: red"></span>
-						<span ng-show="t.priority == 1" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: #ffd11a"></span>
-						<span ng-show="t.priority == 0" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: green"></span>
-					</span>
-				</a>
-				</li>
-			</ul>
-			<!-- <table class="table" ng-show="tab === 3">
-				<thead>
-					<tr>
-						<th>Task Description</th>
-						<th width="20%">Priority</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="t in task.allTasks" ng-hide="!task.completed(t)">
-						<td><a href="#" ng-click="task.Task.completeTask(t)">{{t.description}}</a></td>
-						<td width="20%">{{task.priorityMap[t.priority]}}
+				<!-- Current Tasks Table -->
+				<div class="group">
+					<h4 class="task-list-label-tasks pull-left">Tasks</h4>
+					<h4 class="task-list-label-created-at pull-right" ng-show="tab === 2">Created</h4>
+					<h4 class="task-list-label-priority pull-right">Priority</h4>
+				</div>
+				<ul class="task-list" ng-show="tab === 1">
+					<li class="task-item" ng-repeat="t in task.allTasks | orderBy: '-priority'" ng-hide="task.expired(t) || task.completed(t)" ng-mouseover="hovered = true" ng-mouseleave="hovered = false">
+						<a class="btn btn-default task-item-link" href="#" ng-click="task.Task.completeTask(t)">{{t.description}}
+							<span class="task-item-priority pull-right">
+							{{task.priorityMap[t.priority]}}
 							<span ng-show="t.priority == 2" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: red"></span>
 							<span ng-show="t.priority == 1" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: #ffd11a"></span>
 							<span ng-show="t.priority == 0" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: green"></span>
-						</td>
-					</tr>
-				</tbody>
-			</table> -->
-		</section>
-		<!-- {{task.currentTime}} -->
-		<!-- {{task.test}} -->
+						</span>
+					</a>
+					</li>
+				</ul>
+
+				<!-- Expired Tasks Table -->
+				<ul class="task-list" ng-show="tab === 2">
+					<li class="task-item" ng-repeat="t in task.allTasks" ng-hide="!task.expired(t) || task.completed(t)" ng-mouseover="hovered = true" ng-mouseleave="hovered = false">
+						<a class="btn btn-default task-item-link" href="#" ng-click="task.Task.completeTask(t)">{{t.description}}
+							<span class="pull-right task-item-created-at"> {{task.dateFormat(t.createdAt)}}</span>
+							<span class="task-item-priority pull-right">
+							{{task.priorityMap[t.priority]}}
+							<span ng-show="t.priority == 2" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: red"></span>
+							<span ng-show="t.priority == 1" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: #ffd11a"></span>
+							<span ng-show="t.priority == 0" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: green"></span>
+						</span>
+					</a>
+					</li>
+				</ul>
+
+				<!-- Completed Tasks Table -->
+				<ul class="task-list" ng-show="tab === 3">
+					<li class="task-item" ng-repeat="t in task.allTasks" ng-hide="!task.completed(t)" ng-mouseover="hovered = true" ng-mouseleave="hovered = false">
+						<a class="btn btn-default task-item-link" href="#" ng-click="task.Task.completeTask(t)">
+							<span class="pull-left glyphicon glyphicon-ok" aria-hidden="true"></span>
+							{{t.description}}
+							<span class="task-item-priority pull-right">
+							{{task.priorityMap[t.priority]}}
+							<span ng-show="t.priority == 2" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: red"></span>
+							<span ng-show="t.priority == 1" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: #ffd11a"></span>
+							<span ng-show="t.priority == 0" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: green"></span>
+						</span>
+					</a>
+					</li>
+				</ul>
+			</section>
+			<!-- {{task.currentTime}} -->
+			<!-- {{task.test}} -->
+		</div>
 	</div>
 </div>

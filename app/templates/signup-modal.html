@@ -1,0 +1,38 @@
+<div class="signup-modal">
+  <div class="modal-header">
+    <h3 class="modal-title text-center" id="modal-title">Sign Up to Create Tasks</h3>
+    <button type="button" class="close" aria-label="Close" ng-click="$ctrl.cancel()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" id="modal-body">
+    <form class="signup-form">
+			<!-- <div class="form-group">
+				<label for="set-username" class="hide">Username</label>
+        <input type="text" name="set-username" placeholder="Enter a username" id="set-username" ng-model="$ctrl.Account.usernameInput" class="form-input">
+			</div> -->
+			<p id="sign-up-errors" style="color:red; border: 1px solid red; text-align: center; font-size: 1.7rem; border-radius: 5px;" ng-hide="$ctrl.isValid">Oh no! There was an error! Please try again.</p>
+			<div class="form-group">
+				<label for="set-email" class="hide">Email</label>
+        <input type="email" name="set-email" placeholder="Enter your email" id="set-email" ng-model="$ctrl.User.emailInput" class="form-control">
+			</div>
+			<div class="form-group">
+				<label for="set-password" class="hide">Password</label>
+        <input type="password" name="set-password" placeholder="Enter a password" id="set-password" ng-model="$ctrl.User.passwordInput" class="form-control">
+			</div>
+			<div class="form-group">
+				<label for="confirm-password" class="hide">Confirm password</label>
+        <input type="password" name="confirm-password" placeholder="Confirm Password" id="confirm-password" ng-model="$ctrl.User.confirmPasswordInput" class="form-control">
+			</div>
+	<!-- Test 2 way data binding -->
+	<!-- <p>{{$ctrl.Account.usernameInput}}</p>
+        <p>{{$ctrl.Account.emailInput}}</p>
+        <p>{{$ctrl.Account.passwordInput}}</p>
+        <p>{{$ctrl.Account.confirmPasswordInput}}</p> -->
+				<div class="form-group text-center">
+	        <button type="submit" class="btn btn-success btn-lg signup" ng-click="$ctrl.signup($ctrl.User.emailInput, $ctrl.User.passwordInput)">Sign Up!</button>
+					<button type="submit" class="btn btn-default btn-lg signup" ng-click="$ctrl.cancel()">Close</button>
+				</div>
+    </form>
+  </div>
+</div>

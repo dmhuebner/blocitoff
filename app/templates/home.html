@@ -1,13 +1,27 @@
-<div class="row">
-	<h1 class="text-center">Welcome to Bloc It Off!</h1>
-	<br />
-	<div class="col-md-8 col-md-offset-2 jumbotron text-center">
-			<h2>The Goal Oriented To Do List App</h2>
-			<br />
-			<p class="lead">Bloc It Off is a simple <em>To Do</em> App that keeps your to do lists clean and realistic by removing items that are not completed within 7 days.</p>
-			<p class="lead">Our hypothesis is that if the task is not important enough to be completed within seven days, it does not belong on your to-do list. Expired to do items are still availble under the <em>Expired</em> list, but they will be cleared from your <em>Active</em> to do list.</p>
-			<a href="" class="btn btn-success btn-lg">Sign Up!</a>
-			<a href="" class="btn btn-default btn-lg">Login</a>
-			<!-- {{home.test}} -->
+<!-- Navigation Start -->
+<nav class="navbar navbar-default main-nav">
+	<div class="container">
+		<a ui-sref="home" class="navbar-brand navbar-left navbar-home">Bloc It Off</a>
+		<div class="navbar-right">
+			<button type="submit" class="btn btn-success navbar-btn" ng-click="home.openSignUpModal('md')">Sign Up</button><button type="button" class="btn btn-default navbar-btn">Sign in</button>
+		</div>
+		<!-- <p class="navbar-text navbar-right">Signed in as <a href="#" class="navbar-link">Mark Otto</a></p> -->
+	</div>
+</nav>
+<!-- Navigation End -->
+
+<div class="container">
+	<div class="row">
+		<h1 class="text-center">Welcome to Bloc It Off!</h1>
+		<br />
+		<div class="col-md-8 col-md-offset-2 jumbotron text-center">
+				<h2>The Goal Oriented To Do List App</h2>
+				<br />
+				<p class="lead">Bloc It Off is a simple <em>To Do</em> App that keeps your to do lists clean and realistic by removing items that are not completed within 7 days.</p>
+				<p class="lead">Our hypothesis is that if the task is not important enough to be completed within seven days, it does not belong on your to-do list. Expired to do items are still availble under the <em>Expired</em> list, but they will be cleared from your <em>Active</em> to do list.</p>
+				<a href="" class="btn btn-success btn-lg">Sign Up!</a>
+				<a href="" class="btn btn-default btn-lg">Login</a>
+				<!-- {{home.test}} -->
+		</div>
 	</div>
 </div>

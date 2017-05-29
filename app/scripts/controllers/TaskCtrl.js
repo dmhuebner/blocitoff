@@ -1,5 +1,5 @@
 (function() {
-	function TaskCtrl(Task) {
+	function TaskCtrl(Task, User) {
 		var $ctrl = this;
 
 		var seven_days = 604800000;
@@ -32,7 +32,14 @@
 
 		$ctrl.tasksLength = null;
 
-		$ctrl.newTask = {};
+		/**
+		* @desc User Service
+		* @type {Object} | Service
+		*/
+		$ctrl.User = User;
+
+		/*===== Service Methods =====*/
+
 
 		$ctrl.getTasksLength = function() {
 			$ctrl.allTasks.$loaded().then(function() {
@@ -42,9 +49,18 @@
 
 		$ctrl.getTasksLength();
 
+
 		// $ctrl.tasksLength = $ctrl.getTasksLength();
 
 		/*===== Models =====*/
+
+		/**
+		* @desc initialize newTask
+		* @type {Object}
+		*/
+		$ctrl.newTask = {};
+
+
 		/**
 		* @desc newTask
 		* @type {Object} | Model
@@ -105,5 +121,5 @@
 
 	angular
 		.module('blocItOff')
-		.controller('TaskCtrl', ['Task', TaskCtrl]);
+		.controller('TaskCtrl', ['Task', 'User', TaskCtrl]);
 })();
