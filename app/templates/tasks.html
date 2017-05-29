@@ -3,14 +3,12 @@
 	<div class="container">
 		<a ui-sref="home" class="navbar-brand navbar-left navbar-home">Bloc It Off</a>
 		<div class="navbar-right">
-			<button type="submit" class="btn btn-success navbar-btn" ng-click="home.test()">Sign Up</button><button type="button" class="btn btn-default navbar-btn">Sign in</button>
+			<span>You are logged in | </span><button type="button" class="btn btn-default navbar-btn">Sign in</button>
 		</div>
 		<!-- <p class="navbar-text navbar-right">Signed in as <a href="#" class="navbar-link">Mark Otto</a></p> -->
 	</div>
 </nav>
 <!-- Navigation End -->
-test
-{{task.User.uid}}
 <div class="container">
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2 tasks-section">
@@ -55,7 +53,7 @@ test
 					<h4 class="task-list-label-priority pull-right">Priority</h4>
 				</div>
 				<ul class="task-list" ng-show="tab === 1">
-					<li class="task-item" ng-repeat="t in task.allTasks | orderBy: '-priority'" ng-hide="task.expired(t) || task.completed(t)" ng-mouseover="hovered = true" ng-mouseleave="hovered = false">
+					<li class="task-item" ng-repeat="t in task.currentUserTasks | orderBy: '-priority'" ng-hide="task.expired(t) || task.completed(t)" ng-mouseover="hovered = true" ng-mouseleave="hovered = false">
 						<a class="btn btn-default task-item-link" href="#" ng-click="task.Task.completeTask(t)">{{t.description}}
 							<span class="task-item-priority pull-right">
 							{{task.priorityMap[t.priority]}}
@@ -69,7 +67,7 @@ test
 
 				<!-- Expired Tasks Table -->
 				<ul class="task-list" ng-show="tab === 2">
-					<li class="task-item" ng-repeat="t in task.allTasks" ng-hide="!task.expired(t) || task.completed(t)" ng-mouseover="hovered = true" ng-mouseleave="hovered = false">
+					<li class="task-item" ng-repeat="t in task.currentUserTasks" ng-hide="!task.expired(t) || task.completed(t)" ng-mouseover="hovered = true" ng-mouseleave="hovered = false">
 						<a class="btn btn-default task-item-link" href="#" ng-click="task.Task.completeTask(t)">{{t.description}}
 							<span class="pull-right task-item-created-at"> {{task.dateFormat(t.createdAt)}}</span>
 							<span class="task-item-priority pull-right">
@@ -84,7 +82,7 @@ test
 
 				<!-- Completed Tasks Table -->
 				<ul class="task-list" ng-show="tab === 3">
-					<li class="task-item" ng-repeat="t in task.allTasks" ng-hide="!task.completed(t)" ng-mouseover="hovered = true" ng-mouseleave="hovered = false">
+					<li class="task-item" ng-repeat="t in task.currentUserTasks" ng-hide="!task.completed(t)" ng-mouseover="hovered = true" ng-mouseleave="hovered = false">
 						<a class="btn btn-default task-item-link" href="#" ng-click="task.Task.completeTask(t)">
 							<span class="pull-left glyphicon glyphicon-ok" aria-hidden="true"></span>
 							{{t.description}}
@@ -98,8 +96,6 @@ test
 					</li>
 				</ul>
 			</section>
-			<!-- {{task.currentTime}} -->
-			<!-- {{task.test}} -->
 		</div>
 	</div>
 </div>

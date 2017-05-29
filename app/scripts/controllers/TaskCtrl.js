@@ -30,6 +30,8 @@
 		*/
 		$ctrl.allTasks = $ctrl.Task.all;
 
+		$ctrl.currentUserTasks = $ctrl.Task.getByUserId(firebase.auth().currentUser.uid);
+
 		$ctrl.tasksLength = null;
 
 		/**
@@ -69,7 +71,8 @@
 			description: '',
 			priority: '',
 			createdAt: firebase.database.ServerValue.TIMESTAMP,
-			completed: false
+			completed: false,
+			userId: firebase.auth().currentUser.uid
 		};
 			// order: $ctrl.tasksLength + 1
 
