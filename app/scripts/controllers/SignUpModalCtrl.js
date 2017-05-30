@@ -1,5 +1,5 @@
 (function() {
-	function SignUpModalCtrl($uibModalInstance, User) {
+	function SignUpModalCtrl($uibModalInstance, User, $cookies) {
 		var $ctrl = this;
 
 		/*===== Services =====*/
@@ -51,7 +51,7 @@
 				$ctrl.isValid = false;
 				return false;
 			}
-		}
+		};
 
 		$ctrl.signup = function(email, password) {
 			if ($ctrl.validateSignUp(password)) {
@@ -71,11 +71,16 @@
 				});
 
 			}
-		}
+		};
+
+		$ctrl.closeModal = function() {
+			$uibModalInstance.dismiss('cancel');
+			$cookies.remove('signInModalClicked');
+		};
 
 	}
 
 	angular
 		.module('blocItOff')
-		.controller('SignUpModalCtrl', ['$uibModalInstance', 'User', SignUpModalCtrl]);
+		.controller('SignUpModalCtrl', ['$uibModalInstance', 'User', '$cookies', SignUpModalCtrl]);
 })();

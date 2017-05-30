@@ -1,16 +1,12 @@
-<div class="signup-modal">
+<div class="signup-modal" id="firebaseui-auth-container">
   <div class="modal-header">
-    <h3 class="modal-title text-center" id="modal-title">Sign Up to Create Tasks</h3>
-    <button type="button" class="close" aria-label="Close" ng-click="$ctrl.cancel()">
-      <span aria-hidden="true">&times;</span>
-    </button>
+		<button type="button" class="close" aria-label="Close" ng-click="$ctrl.closeModal()">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		<h3 class="modal-title text-center" id="modal-title">Sign up or Sign in!</h3>
   </div>
   <div class="modal-body" id="modal-body">
-    <form class="signup-form">
-			<!-- <div class="form-group">
-				<label for="set-username" class="hide">Username</label>
-        <input type="text" name="set-username" placeholder="Enter a username" id="set-username" ng-model="$ctrl.Account.usernameInput" class="form-input">
-			</div> -->
+    <!-- <form class="signup-form">
 			<p id="sign-up-errors" style="color:red; border: 1px solid red; text-align: center; font-size: 1.7rem; border-radius: 5px;" ng-hide="$ctrl.isValid">Oh no! There was an error! Please try again.</p>
 			<div class="form-group">
 				<label for="set-email" class="hide">Email</label>
@@ -24,15 +20,32 @@
 				<label for="confirm-password" class="hide">Confirm password</label>
         <input type="password" name="confirm-password" placeholder="Confirm Password" id="confirm-password" ng-model="$ctrl.User.confirmPasswordInput" class="form-control">
 			</div>
-	<!-- Test 2 way data binding -->
-	<!-- <p>{{$ctrl.Account.usernameInput}}</p>
-        <p>{{$ctrl.Account.emailInput}}</p>
-        <p>{{$ctrl.Account.passwordInput}}</p>
-        <p>{{$ctrl.Account.confirmPasswordInput}}</p> -->
 				<div class="form-group text-center">
 	        <button type="submit" class="btn btn-success btn-lg signup" ng-click="$ctrl.signup($ctrl.User.emailInput, $ctrl.User.passwordInput)">Sign Up!</button>
 					<button type="submit" class="btn btn-default btn-lg signup" ng-click="$ctrl.cancel()">Close</button>
 				</div>
-    </form>
-  </div>
+    </form> -->
+
+		<script type="text/javascript">
+			// FirebaseUI config.
+			var uiConfig = {
+				signInSuccessUrl: 'tasks',
+				signInOptions: [
+					// Leave the lines as is for the providers you want to offer your users.
+					firebase.auth.EmailAuthProvider.PROVIDER_ID
+					// firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+					// firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+					// firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+					// firebase.auth.GithubAuthProvider.PROVIDER_ID,
+					// firebase.auth.PhoneAuthProvider.PROVIDER_ID
+				],
+				// Terms of service url.
+				tosUrl: '<your-tos-url>'
+			};
+
+			// Initialize the FirebaseUI Widget using Firebase.
+			var ui = new firebaseui.auth.AuthUI(firebase.auth());
+			// The start method will wait until the DOM is loaded.
+			ui.start('#firebaseui-auth-container', uiConfig);
+		</script>
 </div>

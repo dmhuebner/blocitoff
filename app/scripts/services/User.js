@@ -19,7 +19,16 @@
 					return false;
 				}
 			},
-			currentUser: firebase.auth().currentUser
+			currentUser: firebase.auth().currentUser,
+			signOut: function() {
+				firebase.auth().signOut().then(function() {
+				  // Sign-out successful.
+					window.location.replace('/');
+				}).catch(function(error) {
+				  // An error happened.
+					alert("Oh no! There was an problem logging out. Please try again.");
+				});
+			}
 		}
 	}
 
