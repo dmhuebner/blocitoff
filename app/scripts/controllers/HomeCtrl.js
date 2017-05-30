@@ -8,13 +8,6 @@
 			alert("testing");
 		}
 
-		/*===== Authorization on Load =====*/
-		if (firebase.auth().currentUser) {
-			window.location.replace('/tasks');
-		} else {
-
-		}
-
 		/*===== Services =====*/
 
 		$ctrl.currentUser = {};
@@ -57,6 +50,13 @@
 		if ($ctrl.signInModalClicked) {
 			$ctrl.openSignUpModal('sm');
 		}
+
+		/*===== Authorization on Load =====*/
+		// if (firebase.auth().currentUser) {
+		// 	window.location.replace('/tasks');
+		// } else {
+		//
+		// }
 
 	}
 

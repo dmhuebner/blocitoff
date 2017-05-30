@@ -16,7 +16,7 @@
 		if (firebase.auth().currentUser) {
 			$cookies.remove('signInModalClicked');
 		} else {
-			window.location.replace('/');
+			// window.location.replace('/');
 		}
 
 		/*===== Services =====*/
