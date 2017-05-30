@@ -8,6 +8,13 @@
 			alert("testing");
 		}
 
+		/*===== Authorization on Load =====*/
+		if (firebase.auth().currentUser) {
+			window.location.replace('/tasks');
+		} else {
+
+		}
+
 		/*===== Services =====*/
 
 		$ctrl.currentUser = {};
@@ -16,7 +23,7 @@
 
 		$ctrl.putSignInModalClickedCookie = function() {
 			var now = new Date();
-			now.setMinutes(now.getMinutes() + 1);
+			now.setSeconds(now.getSeconds() + 30);
 			$cookies.put('signInModalClicked', 'angularjs', {expires: now});
 		};
 

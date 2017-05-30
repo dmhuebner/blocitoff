@@ -11,6 +11,8 @@
 		*/
 		$ctrl.test = "Testing main controller";
 
+
+		/*===== Authorization on Load =====*/
 		if (firebase.auth().currentUser) {
 			$cookies.remove('signInModalClicked');
 		} else {
@@ -118,12 +120,14 @@
 			var today = new Date();
 			var diff = today - date;
 			var daysAgo = Math.floor((today - date) / (1000*60*60*24));
-			if (daysAgo > 1 || daysAgo === 0) {
-				string = "days";
+			if (daysAgo > 1) {
+				string = daysAgo + " days ago";
+			} else if (daysAgo === 0) {
+				string = "today";
 			} else {
-				string = "day";
+				string = daysAgo + " day ago";
 			}
-			return daysAgo + " " + string + " ago";
+			return string;
 		};
 
 	}
