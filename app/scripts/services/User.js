@@ -1,5 +1,5 @@
 (function() {
-	function User($firebaseAuth) {
+	function User($firebaseAuth, $cookies) {
 
 		User.auth = $firebaseAuth();
 
@@ -19,11 +19,21 @@
 					return false;
 				}
 			},
-			currentUser: firebase.auth().currentUser
+			currentUser: firebase.auth().currentUser,
+			signOut: function() {
+				firebase.auth().signOut().then(function() {
+				  // Sign-out successful.
+					$cookies.remove('signInModalClicked');
+					window.location.replace('/');
+				}).catch(function(error) {
+				  // An error happened.
+					alert("Oh no! There was an problem logging out. Please try again.");
+				});
+			}
 		}
 	}
 
 	angular
 		.module('blocItOff')
-		.factory('User', ['$firebaseAuth', User]);
+		.factory('User', ['$firebaseAuth', '$cookies', User]);
 })();

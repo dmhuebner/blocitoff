@@ -3,7 +3,7 @@
 	<div class="container">
 		<a ui-sref="home" class="navbar-brand navbar-left navbar-home">Bloc It Off</a>
 		<div class="navbar-right">
-			<span>You are logged in | </span><button type="button" class="btn btn-default navbar-btn">Sign in</button>
+			<p class="sign-in-status" id="sign-in-status" ng-show="task.User.currentUser">Weclome! | </p><button type="button" class="btn btn-lg btn-default navbar-btn" ng-click="task.User.signOut()">Logout</button>
 		</div>
 		<!-- <p class="navbar-text navbar-right">Signed in as <a href="#" class="navbar-link">Mark Otto</a></p> -->
 	</div>
@@ -36,6 +36,22 @@
 			</section>
 			<!-- {{task.newTask.description}}
 			{{task.newTask.priority}} -->
+
+			<div ng-show="tab == 1" class="alert alert-warning alert-dismissible alert-custom expiration-reminder" role="alert">
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			  <span><strong>Remember!</strong>  -  Tasks will move to the "Expired Tasks" tab after 7 days!</span>
+			</div>
+
+			<div ng-show="tab == 2" class="alert alert-warning alert-dismissible alert-custom expiration-reminder" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<span><strong>Keep in mind</strong>  -  You can still mark expired tasks as complete! Just give em' a click!</span>
+			</div>
+
+			<div ng-show="tab == 3" class="alert alert-warning alert-dismissible alert-custom expiration-reminder" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<span><strong>Got ahead of yourself?</strong>  -  You can unmark a task as complete by clicking on it</span>
+			</div>
+
 			<section class="tasks-display-section">
 				<hr />
 				<br />
@@ -46,15 +62,17 @@
 				</ul>
 				<br />
 
-				<!-- Current Tasks Table -->
+				<!-- Current Tasks -->
 				<div class="group">
 					<h4 class="task-list-label-tasks pull-left">Tasks</h4>
-					<h4 class="task-list-label-created-at pull-right" ng-show="tab === 2">Created</h4>
+					<h4 class="task-list-label-created-at pull-right" ng-show="tab !== 3">Created</h4>
 					<h4 class="task-list-label-priority pull-right">Priority</h4>
 				</div>
 				<ul class="task-list" ng-show="tab === 1">
+					<li class="task-item-no-tasks-yet" ng-hide="task.currentUserTasks.length > 0">Welcome! Please enter a new task above.</li>
 					<li class="task-item" ng-repeat="t in task.currentUserTasks | orderBy: '-priority'" ng-hide="task.expired(t) || task.completed(t)" ng-mouseover="hovered = true" ng-mouseleave="hovered = false">
 						<a class="btn btn-default task-item-link" href="#" ng-click="task.Task.completeTask(t)">{{t.description}}
+							<span class="pull-right task-item-created-at"> {{task.dateFormat(t.createdAt)}}</span>
 							<span class="task-item-priority pull-right">
 							{{task.priorityMap[t.priority]}}
 							<span ng-show="t.priority == 2" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: red"></span>

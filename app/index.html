@@ -10,10 +10,14 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<!-- Google Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-	<!-- Custom Styles -->
+	<!-- Main Custom Styles -->
   <link rel="stylesheet" href="/styles/main.css">
 	<!-- Media Query Styles -->
 	<link rel="stylesheet" href="/styles/media-queries.css">
+	<!-- Home Custom Styles -->
+	<link rel="stylesheet" href="/styles/home.css" />
+	<!-- Home Custom Styles -->
+	<link rel="stylesheet" href="/styles/signup-modal.css" />
 </head>
 <body>
 <!--===== CONTENT =====-->
@@ -42,6 +46,8 @@
   <script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
 	<!-- Angular-ui Bootstrap -->
   <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
+	<!-- Angular Cookies -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-cookies.js"></script>
 
 <!--** Initialize Firebase **-->
 	<script>
@@ -60,24 +66,7 @@
 
 <script src="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.js"></script>
 <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.css" />
-<script type="text/javascript">
-	// FirebaseUI config.
-	var uiConfig = {
-		signInSuccessUrl: 'tasks.html',
-		signInOptions: [
-			// Leave the lines as is for the providers you want to offer your users.
-			firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-			firebase.auth.EmailAuthProvider.PROVIDER_ID
-		],
-		// Terms of service url.
-		tosUrl: '<your-tos-url>'
-	};
 
-	// Initialize the FirebaseUI Widget using Firebase.
-	var ui = new firebaseui.auth.AuthUI(firebase.auth());
-	// The start method will wait until the DOM is loaded.
-	ui.start('#firebaseui-auth-container', uiConfig);
-</script>
 
 
 <script type="text/javascript">
@@ -85,27 +74,9 @@
 			firebase.auth().onAuthStateChanged(function(user) {
 				if (user) {
 					// User is signed in.
-					var displayName = user.displayName;
-					var email = user.email;
-					var emailVerified = user.emailVerified;
-					var photoURL = user.photoURL;
-					var uid = user.uid;
-					var phoneNumber = user.phoneNumber;
-					var providerData = user.providerData;
-					user.getToken().then(function(accessToken) {
-						document.getElementById('sign-in-status').textContent = 'Signed in';
-						document.getElementById('sign-in').textContent = 'Sign out';
-						document.getElementById('account-details').textContent = JSON.stringify({
-							displayName: displayName,
-							email: email,
-							emailVerified: emailVerified,
-							phoneNumber: phoneNumber,
-							photoURL: photoURL,
-							uid: uid,
-							accessToken: accessToken,
-							providerData: providerData
-						}, null, '  ');
-					});
+					if (document.getElementById('sign-in-status')) {
+						document.getElementById('sign-in-status').innerHTML = "test";
+					}
 				} else {
 					// User is signed out.
 

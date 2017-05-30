@@ -1,5 +1,5 @@
 (function() {
-	function TaskCtrl(Task, User) {
+	function TaskCtrl(Task, User, $cookies) {
 		var $ctrl = this;
 
 		var seven_days = 604800000;
@@ -10,6 +10,12 @@
 		* @type {Object}
 		*/
 		$ctrl.test = "Testing main controller";
+
+		if (firebase.auth().currentUser) {
+			$cookies.remove('signInModalClicked');
+		} else {
+			window.location.replace('/');
+		}
 
 		/*===== Services =====*/
 		/**
@@ -124,5 +130,5 @@
 
 	angular
 		.module('blocItOff')
-		.controller('TaskCtrl', ['Task', 'User', TaskCtrl]);
+		.controller('TaskCtrl', ['Task', 'User', '$cookies', TaskCtrl]);
 })();
