@@ -55,9 +55,9 @@ body {
 }
 
 .sign-in-status {
-	font-size: 2rem;
+	font-size: 1.8rem;
 	color: #5B5F97;
-	padding-top: 1.3rem;
+	margin-top: 2rem;
 	margin-right: 2rem;
 	display: inline-block;
 }

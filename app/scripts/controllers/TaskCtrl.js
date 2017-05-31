@@ -13,7 +13,7 @@
 
 
 		/*===== Authorization on Load =====*/
-		if (firebase.auth().currentUser) {
+		if ($ctrl.currentUser) {
 			$cookies.remove('signInModalClicked');
 		} else {
 			// window.location.replace('/');
@@ -44,21 +44,43 @@
 		*/
 		$ctrl.allTasks = $ctrl.Task.all;
 
-		/**
-		* @desc currentUserTasks | from Task Service
-		* @type {Object}
-		*/
 
-		// observer = $ctrl.User.getCurrentUser();
-		// $ctrl.currentUserTasks = $ctrl.Task.getByUserId(firebase.auth().currentUser.uid);
+/**
+* @desc getCurrentUser | from User Service
+* @type {Promise} | user
+*/
 		$ctrl.User.getCurrentUser().then(function(user) {
-			console.log(user);
+			// console.log(user);
+			/**
+			* @desc currentUserTasks | from Task Service
+			* @type {Object}
+			*/
 			$ctrl.currentUserTasks = $ctrl.Task.getByUserId(user.uid);
+			$ctrl.currentUser = user;
+			$ctrl.currentUserId = user.uid;
+
+			/**
+			* @desc newTask
+			* @type {Object} | Model
+			*/
+			$ctrl.newTask = {
+				description: '',
+				priority: '',
+				createdAt: firebase.database.ServerValue.TIMESTAMP,
+				completed: false,
+				userId: $ctrl.currentUserId
+			};
+				// order: $ctrl.tasksLength + 1
+
+			/*** Set Current User Name in navbar ***/
+			if (user.displayName) {
+				var userFirstName = user.displayName.split(' ')[0];
+				document.getElementById('current-user-display-name').innerHTML = "Welcome " + userFirstName + "!";
+			} else {
+				console.log('No user display name');
+			}
+
 		})
-		// $ctrl.User.getCurrentUser().subscribe(function(user) {
-		// 	console.log(user);
-		// 	// $ctrl.currentUserTasks = $ctrl.Task.getByUserId(uid);
-		// });
 
 		$ctrl.tasksLength = null;
 
@@ -77,27 +99,6 @@
 
 		// $ctrl.tasksLength = $ctrl.getTasksLength();
 
-		/*===== Models =====*/
-
-		/**
-		* @desc initialize newTask
-		* @type {Object}
-		*/
-		$ctrl.newTask = {};
-
-
-		/**
-		* @desc newTask
-		* @type {Object} | Model
-		*/
-		$ctrl.newTask = {
-			description: '',
-			priority: '',
-			createdAt: firebase.database.ServerValue.TIMESTAMP,
-			completed: false,
-			userId: document.getElementById('current-user-id').textContent
-		};
-			// order: $ctrl.tasksLength + 1
 
 		/**
 		* @desc priorityMap

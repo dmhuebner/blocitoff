@@ -3,7 +3,7 @@
 	<div class="container">
 		<a ui-sref="tasks" class="navbar-brand navbar-left navbar-home">Bloc It Off</a>
 		<div class="navbar-right">
-			<p class="sign-in-status" id="sign-in-status" ng-show="task.User.currentUser">Weclome! | </p><button type="button" class="btn btn-lg btn-default navbar-btn" ng-click="task.User.signOut()">Logout</button>
+			<p class="sign-in-status" id="current-user-display-name" ng-show="task.currentUser"></p><button type="button" class="btn btn-lg btn-default navbar-btn" ng-click="task.User.signOut()">Logout</button>
 		</div>
 		<!-- <p class="navbar-text navbar-right">Signed in as <a href="#" class="navbar-link">Mark Otto</a></p> -->
 	</div>

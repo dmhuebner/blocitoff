@@ -21,7 +21,6 @@
 </head>
 <body>
 <!--===== CONTENT =====-->
-	<span ng-hide="true" id="current-user-id"></span>
 	<span ng-hide="true" id="account-details"></span>
 
 	<ui-view></ui-view>
@@ -83,9 +82,8 @@
 				var phoneNumber = user.phoneNumber;
 				var providerData = user.providerData;
 				user.getToken().then(function(accessToken) {
-					console.log(uid);
-					document.getElementById('current-user-id').innerHTML = uid;
-					console.log(document.getElementById('current-user-id').innerHTML);
+					console.log(displayName);
+					// document.getElementById('current-user-display-name').innerHTML = "Hi " + displayName;
 					document.getElementById('account-details').textContent = JSON.stringify({
 						displayName: displayName,
 						email: email,
