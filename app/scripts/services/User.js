@@ -1,5 +1,5 @@
 (function() {
-	function User($firebaseAuth, $cookies) {
+	function User($firebaseAuth, $cookies, $q) {
 
 		User.auth = $firebaseAuth();
 
@@ -19,7 +19,24 @@
 					return false;
 				}
 			},
-			currentUser: firebase.auth().currentUser,
+			getCurrentUser: function() {
+				var deferred = $q.defer();
+				firebase.auth().onAuthStateChanged(function(user) {
+				  if (user) {
+				    // User is signed in.
+
+						return deferred.resolve(user);
+				  } else {
+				    // No user is signed in.
+						return false;
+				  }
+				});
+				return deferred.promise;
+				// return firebase.auth().currentUser.uid;
+			},
+			// getCurrentUser: function() {
+			// 	return document.getElementById('current-user-id').textContent;
+			// },
 			signOut: function() {
 				firebase.auth().signOut().then(function() {
 				  // Sign-out successful.
@@ -35,5 +52,5 @@
 
 	angular
 		.module('blocItOff')
-		.factory('User', ['$firebaseAuth', '$cookies', User]);
+		.factory('User', ['$firebaseAuth', '$cookies', '$q', User]);
 })();

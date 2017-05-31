@@ -27,6 +27,12 @@
 		$ctrl.Task = Task;
 
 		/**
+		* @desc User Service
+		* @type {Object} | Service
+		*/
+		$ctrl.User = User;
+
+		/**
 		* @desc Declare newMessage property
 		* @type {Object}
 		*/
@@ -38,15 +44,24 @@
 		*/
 		$ctrl.allTasks = $ctrl.Task.all;
 
-		$ctrl.currentUserTasks = $ctrl.Task.getByUserId(firebase.auth().currentUser.uid);
+		/**
+		* @desc currentUserTasks | from Task Service
+		* @type {Object}
+		*/
+
+		// observer = $ctrl.User.getCurrentUser();
+		// $ctrl.currentUserTasks = $ctrl.Task.getByUserId(firebase.auth().currentUser.uid);
+		$ctrl.User.getCurrentUser().then(function(user) {
+			console.log(user);
+			$ctrl.currentUserTasks = $ctrl.Task.getByUserId(user.uid);
+		})
+		// $ctrl.User.getCurrentUser().subscribe(function(user) {
+		// 	console.log(user);
+		// 	// $ctrl.currentUserTasks = $ctrl.Task.getByUserId(uid);
+		// });
 
 		$ctrl.tasksLength = null;
 
-		/**
-		* @desc User Service
-		* @type {Object} | Service
-		*/
-		$ctrl.User = User;
 
 		/*===== Service Methods =====*/
 
@@ -80,7 +95,7 @@
 			priority: '',
 			createdAt: firebase.database.ServerValue.TIMESTAMP,
 			completed: false,
-			userId: firebase.auth().currentUser.uid
+			userId: document.getElementById('current-user-id').textContent
 		};
 			// order: $ctrl.tasksLength + 1
 
