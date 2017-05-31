@@ -28,6 +28,11 @@
 					task.completed = false;
 					tasks.$save(task);
 				}
+			},
+			getByUserId: function(userId) {
+				var tempRef = ref.orderByChild('userId').equalTo(userId);
+				tasks = $firebaseArray(tempRef);
+				return tasks;
 			}
 		}
 	}

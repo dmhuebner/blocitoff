@@ -20,6 +20,6 @@
 	}
 
 	angular
-		.module('blocItOff', ['ui.router', 'firebase'])
+		.module('blocItOff', ['ui.router', 'firebase', 'ui.bootstrap', 'ngCookies'])
 		.config(config);
 })();

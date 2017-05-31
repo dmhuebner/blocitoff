@@ -10,28 +10,20 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<!-- Google Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-	<!-- Custom Styles -->
+	<!-- Main Custom Styles -->
   <link rel="stylesheet" href="/styles/main.css">
 	<!-- Media Query Styles -->
 	<link rel="stylesheet" href="/styles/media-queries.css">
+	<!-- Home Custom Styles -->
+	<link rel="stylesheet" href="/styles/home.css" />
+	<!-- Home Custom Styles -->
+	<link rel="stylesheet" href="/styles/signup-modal.css" />
 </head>
 <body>
 <!--===== CONTENT =====-->
-	<!-- Navigation Start -->
-	<nav class="navbar navbar-default main-nav">
-		<div class="container">
-			<a ui-sref="home" class="navbar-brand navbar-left navbar-home">Bloc It Off</a>
-			<div class="navbar-right">
-				<button type="submit" class="btn btn-success navbar-btn">Sign Up</button><button type="button" class="btn btn-default navbar-btn">Sign in</button>
-			</div>
-			<!-- <p class="navbar-text navbar-right">Signed in as <a href="#" class="navbar-link">Mark Otto</a></p> -->
-		</div>
-	</nav>
-	<!-- Navigation End -->
+	<span ng-hide="true" id="account-details"></span>
 
-	<div class="container">
-		<ui-view></ui-view>
-	</div>
+	<ui-view></ui-view>
 
 <!--===== SCRIPTS =====-->
 
@@ -52,6 +44,10 @@
   <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
   <!-- AngularFire -->
   <script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
+	<!-- Angular-ui Bootstrap -->
+  <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
+	<!-- Angular Cookies -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-cookies.js"></script>
 
 <!--** Initialize Firebase **-->
 	<script>
@@ -66,15 +62,64 @@
 	  firebase.initializeApp(config);
 	</script>
 
+<!--** Dependencies after Firebase | firebaseui **-->
+
+<script src="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.js"></script>
+<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.css" />
+
+
+
+<script type="text/javascript">
+	initApp = function() {
+		firebase.auth().onAuthStateChanged(function(user) {
+			if (user) {
+				// User is signed in.
+				var displayName = user.displayName;
+				var email = user.email;
+				var emailVerified = user.emailVerified;
+				var photoURL = user.photoURL;
+				var uid = user.uid;
+				var phoneNumber = user.phoneNumber;
+				var providerData = user.providerData;
+				user.getToken().then(function(accessToken) {
+					console.log(displayName);
+					// document.getElementById('current-user-display-name').innerHTML = "Hi " + displayName;
+					document.getElementById('account-details').textContent = JSON.stringify({
+						displayName: displayName,
+						email: email,
+						emailVerified: emailVerified,
+						phoneNumber: phoneNumber,
+						photoURL: photoURL,
+						uid: uid,
+						accessToken: accessToken,
+						providerData: providerData
+					}, null, '  ');
+				});
+			} else {
+				// User is signed out.
+				document.getElementById('account-details').textContent = 'null';
+			}
+		}, function(error) {
+			console.log(error);
+		});
+	};
+
+	window.addEventListener('load', function() {
+		initApp()
+	});
+</script>
+
 <!--** Application Files **-->
 	<!-- app.js -->
   <script src="/scripts/app.js"></script>
 	<!-- Services -->
-	<script src="/scripts/services/CurrentTime.js"></script>
+	<!-- <script src="/scripts/services/CurrentTime.js"></script> -->
 	<script src="/scripts/services/Task.js"></script>
+	<script src="/scripts/services/User.js"></script>
 	<!-- Controllers -->
 	<script src="/scripts/controllers/HomeCtrl.js"></script>
 	<script src="/scripts/controllers/TaskCtrl.js"></script>
+	<script src="/scripts/controllers/SignUpModalCtrl.js"></script>
 	<!-- Directives -->
 	<!-- <script src="/scripts/directives/taskComplete.js"></script> -->
 </body>

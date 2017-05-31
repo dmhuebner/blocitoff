@@ -1,5 +1,5 @@
 (function() {
-	function TaskCtrl(Task) {
+	function TaskCtrl(Task, User, $cookies) {
 		var $ctrl = this;
 
 		var seven_days = 604800000;
@@ -11,12 +11,26 @@
 		*/
 		$ctrl.test = "Testing main controller";
 
+
+		/*===== Authorization on Load =====*/
+		if ($ctrl.currentUser) {
+			$cookies.remove('signInModalClicked');
+		} else {
+			// window.location.replace('/');
+		}
+
 		/*===== Services =====*/
 		/**
 		* @desc Task Service
 		* @type {Object} | Service
 		*/
 		$ctrl.Task = Task;
+
+		/**
+		* @desc User Service
+		* @type {Object} | Service
+		*/
+		$ctrl.User = User;
 
 		/**
 		* @desc Declare newMessage property
@@ -30,9 +44,49 @@
 		*/
 		$ctrl.allTasks = $ctrl.Task.all;
 
+
+/**
+* @desc getCurrentUser | from User Service
+* @type {Promise} | user
+*/
+		$ctrl.User.getCurrentUser().then(function(user) {
+			// console.log(user);
+			/**
+			* @desc currentUserTasks | from Task Service
+			* @type {Object}
+			*/
+			$ctrl.currentUserTasks = $ctrl.Task.getByUserId(user.uid);
+			$ctrl.currentUser = user;
+			$ctrl.currentUserId = user.uid;
+
+			/**
+			* @desc newTask
+			* @type {Object} | Model
+			*/
+			$ctrl.newTask = {
+				description: '',
+				priority: '',
+				createdAt: firebase.database.ServerValue.TIMESTAMP,
+				completed: false,
+				userId: $ctrl.currentUserId
+			};
+				// order: $ctrl.tasksLength + 1
+
+			/*** Set Current User Name in navbar ***/
+			if (user.displayName) {
+				var userFirstName = user.displayName.split(' ')[0];
+				document.getElementById('current-user-display-name').innerHTML = "Welcome " + userFirstName + "!";
+			} else {
+				console.log('No user display name');
+			}
+
+		})
+
 		$ctrl.tasksLength = null;
 
-		$ctrl.newTask = {};
+
+		/*===== Service Methods =====*/
+
 
 		$ctrl.getTasksLength = function() {
 			$ctrl.allTasks.$loaded().then(function() {
@@ -42,20 +96,9 @@
 
 		$ctrl.getTasksLength();
 
+
 		// $ctrl.tasksLength = $ctrl.getTasksLength();
 
-		/*===== Models =====*/
-		/**
-		* @desc newTask
-		* @type {Object} | Model
-		*/
-		$ctrl.newTask = {
-			description: '',
-			priority: '',
-			createdAt: firebase.database.ServerValue.TIMESTAMP,
-			completed: false
-		};
-			// order: $ctrl.tasksLength + 1
 
 		/**
 		* @desc priorityMap
@@ -93,17 +136,19 @@
 			var today = new Date();
 			var diff = today - date;
 			var daysAgo = Math.floor((today - date) / (1000*60*60*24));
-			if (daysAgo > 1 || daysAgo === 0) {
-				string = "days";
+			if (daysAgo > 1) {
+				string = daysAgo + " days ago";
+			} else if (daysAgo === 0) {
+				string = "today";
 			} else {
-				string = "day";
+				string = daysAgo + " day ago";
 			}
-			return daysAgo + " " + string + " ago";
+			return string;
 		};
 
 	}
 
 	angular
 		.module('blocItOff')
-		.controller('TaskCtrl', ['Task', TaskCtrl]);
+		.controller('TaskCtrl', ['Task', 'User', '$cookies', TaskCtrl]);
 })();
