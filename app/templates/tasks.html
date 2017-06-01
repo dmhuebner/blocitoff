@@ -12,7 +12,7 @@
 
 <div class="container">
 	<div class="row">
-		<div class="col-md-8 col-md-offset-2 tasks-section">
+		<div class="col-sm-8 col-sm-offset-2 tasks-section">
 			<h2 class="text-center tasks-header">My To Do List</h2>
 			<br />
 			<section class="new-task-form-section text-center">
@@ -53,6 +53,11 @@
 				<span><strong>Got ahead of yourself?</strong>  -  You can unmark a task as complete by clicking on it</span>
 			</div>
 
+			<div ng-init="completedTask" ng-show="completedTask === true" class="alert alert-warning alert-dismissible alert-custom completed-task-alert" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<span><strong>Hey {{$ctrl.currentUser.displayName}}, The {{t.description}} task was removed successfully! </strong>
+			</div>
+
 			<section class="tasks-display-section">
 				<hr />
 				<br />
@@ -63,39 +68,55 @@
 				</ul>
 				<br />
 
-				<!-- Current Tasks -->
+				<!-- Tasks Labels -->
 				<div class="group">
 					<h4 class="task-list-label-tasks pull-left">Tasks</h4>
 					<h4 class="task-list-label-created-at pull-right" ng-show="tab !== 3">Created</h4>
 					<h4 class="task-list-label-priority pull-right">Priority</h4>
 				</div>
+
+				<!-- Current Tasks -->
 				<ul class="task-list" ng-show="tab === 1">
 					<li class="task-item-no-tasks-yet" ng-hide="task.currentUserTasks.length > 0">Welcome! Please enter a new task above.</li>
 					<li class="task-item" ng-repeat="t in task.currentUserTasks | orderBy: '-priority'" ng-hide="task.expired(t) || task.completed(t)" ng-mouseover="hovered = true" ng-mouseleave="hovered = false">
-						<a class="btn btn-default task-item-link" href="#" ng-click="task.Task.completeTask(t)">{{t.description}}
-							<span class="pull-right task-item-created-at"> {{task.dateFormat(t.createdAt)}}</span>
-							<span class="task-item-priority pull-right">
-							{{task.priorityMap[t.priority]}}
-							<span ng-show="t.priority == 2" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: red"></span>
-							<span ng-show="t.priority == 1" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: #ffd11a"></span>
-							<span ng-show="t.priority == 0" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: green"></span>
-						</span>
-					</a>
+						<a class="btn btn-default task-item-link" href="#" ng-click="task.Task.completeTask(t)">
+							<div class="col-xs-9 task-description-div">
+								<span class="task-item-description">{{t.description}}</span>
+							</div>
+							<div class="col-xs-1">
+								<span class="task-item-priority">
+									{{task.priorityMap[t.priority]}}
+									<span ng-show="t.priority == 2" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: red"></span>
+									<span ng-show="t.priority == 1" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: #ffd11a"></span>
+									<span ng-show="t.priority == 0" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: green"></span>
+								</span>
+							</div>
+							<div class="col-xs-2">
+								<span class="task-item-created-at"> {{task.dateFormat(t.createdAt)}}</span>
+							</div>
+						</a>
 					</li>
 				</ul>
 
 				<!-- Expired Tasks -->
 				<ul class="task-list" ng-show="tab === 2">
 					<li class="task-item" ng-repeat="t in task.currentUserTasks" ng-hide="!task.expired(t) || task.completed(t)" ng-mouseover="hovered = true" ng-mouseleave="hovered = false">
-						<a class="btn btn-default task-item-link" href="#" ng-click="task.Task.completeTask(t)">{{t.description}}
-							<span class="pull-right task-item-created-at"> {{task.dateFormat(t.createdAt)}}</span>
-							<span class="task-item-priority pull-right">
-							{{task.priorityMap[t.priority]}}
-							<span ng-show="t.priority == 2" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: red"></span>
-							<span ng-show="t.priority == 1" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: #ffd11a"></span>
-							<span ng-show="t.priority == 0" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: green"></span>
-						</span>
-					</a>
+						<a class="btn btn-default task-item-link" href="#" ng-click="task.Task.completeTask(t)">
+							<div class="col-xs-9 task-description-div">
+								<span class="task-item-description">{{t.description}}</span>
+							</div>
+							<div class="col-xs-1">
+								<span class="task-item-priority pull-right">
+									{{task.priorityMap[t.priority]}}
+									<span ng-show="t.priority == 2" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: red"></span>
+									<span ng-show="t.priority == 1" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: #ffd11a"></span>
+									<span ng-show="t.priority == 0" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: green"></span>
+								</span>
+							</div>
+							<div class="col-xs-2">
+								<span class="pull-right task-item-created-at"> {{task.dateFormat(t.createdAt)}}</span>
+							</div>
+						</a>
 					</li>
 				</ul>
 
@@ -104,14 +125,21 @@
 					<li class="task-item" ng-repeat="t in task.currentUserTasks" ng-hide="!task.completed(t)" ng-mouseover="hovered = true" ng-mouseleave="hovered = false">
 						<a class="btn btn-default task-item-link" href="#" ng-click="task.Task.completeTask(t)">
 							<span class="pull-left glyphicon glyphicon-ok" aria-hidden="true"></span>
-							{{t.description}}
-							<span class="task-item-priority pull-right">
-							{{task.priorityMap[t.priority]}}
-							<span ng-show="t.priority == 2" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: red"></span>
-							<span ng-show="t.priority == 1" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: #ffd11a"></span>
-							<span ng-show="t.priority == 0" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: green"></span>
-						</span>
-					</a>
+							<div class="col-xs-9 task-description-div">
+								<span class="task-item-description">{{t.description}}</span>
+							</div>
+							<div class="col-xs-2">
+								<span class="task-item-priority pull-right" ng-hide="hovered">
+								{{task.priorityMap[t.priority]}}
+									<span ng-show="t.priority == 2" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: red"></span>
+									<span ng-show="t.priority == 1" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: #ffd11a"></span>
+									<span ng-show="t.priority == 0" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: green"></span>
+								</span>
+							</div>
+							<div class="col-xs-2">
+								<span class="pull-right delete-completed-task" ng-show="hovered" ng-click="task.Task.removeTask(t)">Remove</span>
+							</div>
+						</a>
 					</li>
 				</ul>
 			</section>

@@ -11,7 +11,6 @@
 		*/
 		$ctrl.test = "Testing main controller";
 
-
 		/*===== Authorization on Load =====*/
 		if ($ctrl.currentUser) {
 			$cookies.remove('signInModalClicked');
