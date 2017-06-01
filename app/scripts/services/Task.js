@@ -15,6 +15,13 @@
 					alert("There was an error saving the task.");
 				}
 			},
+			removeTask: function(task) {
+				alert('Are you sure you want to remove the task: "' + task.description + '"?');
+				tasks.$remove(task).then(function(ref) {
+					ref.key === task.$id;
+					console.log('The task "' + task.description + '" was removed successfully!');
+				});
+			},
 			arrayMove: function(arr, fromIndex, toIndex) {
     		var element = arr[fromIndex];
     		arr.splice(fromIndex, 1);
