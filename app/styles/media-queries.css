@@ -1,5 +1,15 @@
+
+
 /* Small devices (tablets, 768px) */
 @media (max-width: 768px) {
+
+	.form-group-new-task-description {
+		min-width: 100%;
+	}
+
+	.task-item-no-tasks-yet {
+		font-size: 1.7rem;
+	}
 
 	.task-item-link {
 		font-size: 1.5rem;
@@ -16,15 +26,98 @@
 		/*height: 6rem;*/
 	}
 
-	.task-list-label-tasks,
+	.task-list-label-tasks {
+		font-size: 1.7rem;
+	}
+
 	.task-list-label-priority,
 	.task-list-label-created-at {
-		font-size: 1.7rem;
+		font-size: 1.3rem;
+		padding-right: 1.5rem;
+	}
+
+	.task-item-priority,
+	.task-item-created-at {
+		font-size: 1.3rem;
+		margin-left: 0.8rem;
+		padding: 0;
+	}
+
+	.task-item-priority {
+		margin-left: -0.2rem;
+	}
+
+	.glyphicon-ok {
+		margin-right: 1rem;
+	}
+
+}
+
+/* Extra Small devices (tablets, 450px) */
+@media (max-width: 490px) {
+
+	.task-list-label-priority,
+	.task-list-label-created-at {
+		font-size: 1.2rem;
+		padding-right: 0.1rem;
+		margin-left: 0;
+	}
+
+	.task-item-link {
+		font-size: 1.3rem;
+		/*height: 5rem;*/
+	}
+
+	.task-created-at-div,
+	.task-priority-div,
+	.delete-completed-task-div {
+		margin-left: 0
+		margin-right: 0;
+		padding-left: 0.8rem;
+		padding-right: 0;
+	}
+
+	.delete-completed-task-div {
+		margin-left: -1.5rem;
+	}
+
+	.glyphicon-ok {
+		margin-right: 0;
+	}
+
+	.task-description-div {
+		padding-left: 0.7rem;
+		/*margin-left: 0;*/
+	}
+
+	.task-item:hover,
+	.task-item-link:hover {
+		font-size: 1.6rem;
+		/*height: 6rem;*/
 	}
 
 	.task-item-priority,
 	.task-item-created-at {
 		font-size: 1rem;
+		padding: 0;
+	}
+
+	.completed-tasks .task-item-priority {
+		margin-left: -0.2rem;
+		padding: 0
+	}
+
+	.expired-tasks .task-item-priority {
+		margin-right: 1rem;
+	}
+
+	.expired-tasks .task-item-created-at {
+		margin-left: 1rem;
+	}
+
+
+	.task-item-created-at {
+		margin-right: 1rem;
 	}
 
 }

@@ -83,7 +83,7 @@
 							<div class="col-xs-9 task-description-div">
 								<span class="task-item-description">{{t.description}}</span>
 							</div>
-							<div class="col-xs-1">
+							<div class="col-xs-1 task-priority-div">
 								<span class="task-item-priority">
 									{{task.priorityMap[t.priority]}}
 									<span ng-show="t.priority == 2" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: red"></span>
@@ -91,7 +91,7 @@
 									<span ng-show="t.priority == 0" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: green"></span>
 								</span>
 							</div>
-							<div class="col-xs-2">
+							<div class="col-xs-2 task-created-at-div">
 								<span class="task-item-created-at"> {{task.dateFormat(t.createdAt)}}</span>
 							</div>
 						</a>
@@ -99,13 +99,13 @@
 				</ul>
 
 				<!-- Expired Tasks -->
-				<ul class="task-list" ng-show="tab === 2">
+				<ul class="task-list expired-tasks" ng-show="tab === 2">
 					<li class="task-item" ng-repeat="t in task.currentUserTasks" ng-hide="!task.expired(t) || task.completed(t)" ng-mouseover="hovered = true" ng-mouseleave="hovered = false">
 						<a class="btn btn-default task-item-link" href="#" ng-click="task.Task.completeTask(t)">
 							<div class="col-xs-9 task-description-div">
 								<span class="task-item-description">{{t.description}}</span>
 							</div>
-							<div class="col-xs-1">
+							<div class="col-xs-1 task-priority-div">
 								<span class="task-item-priority pull-right">
 									{{task.priorityMap[t.priority]}}
 									<span ng-show="t.priority == 2" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: red"></span>
@@ -113,7 +113,7 @@
 									<span ng-show="t.priority == 0" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: green"></span>
 								</span>
 							</div>
-							<div class="col-xs-2">
+							<div class="col-xs-2 task-created-at-div">
 								<span class="pull-right task-item-created-at"> {{task.dateFormat(t.createdAt)}}</span>
 							</div>
 						</a>
@@ -121,22 +121,20 @@
 				</ul>
 
 				<!-- Completed Tasks -->
-				<ul class="task-list" ng-show="tab === 3">
+				<ul class="task-list completed-tasks" ng-show="tab === 3">
 					<li class="task-item" ng-repeat="t in task.currentUserTasks" ng-hide="!task.completed(t)" ng-mouseover="hovered = true" ng-mouseleave="hovered = false">
 						<a class="btn btn-default task-item-link" href="#" ng-click="task.Task.completeTask(t)">
 							<span class="pull-left glyphicon glyphicon-ok" aria-hidden="true"></span>
-							<div class="col-xs-9 task-description-div">
+							<div class="col-xs-9 task-description-div group">
 								<span class="task-item-description">{{t.description}}</span>
 							</div>
-							<div class="col-xs-2">
+							<div class="col-xs-2 col-offset-xs-1 task-priority-div delete-completed-task-div group">
 								<span class="task-item-priority pull-right" ng-hide="hovered">
 								{{task.priorityMap[t.priority]}}
 									<span ng-show="t.priority == 2" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: red"></span>
 									<span ng-show="t.priority == 1" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: #ffd11a"></span>
 									<span ng-show="t.priority == 0" class="glyphicon glyphicon-flag" aria-hidden="true" style="color: green"></span>
 								</span>
-							</div>
-							<div class="col-xs-2">
 								<span class="pull-right delete-completed-task" ng-show="hovered" ng-click="task.Task.removeTask(t)">Remove</span>
 							</div>
 						</a>
