@@ -79,7 +79,7 @@
 				<ul class="task-list" ng-show="tab === 1">
 					<li class="task-item-no-tasks-yet" ng-hide="task.currentUserTasks.length > 0">Welcome! Please enter a new task above.</li>
 					<li class="task-item" ng-repeat="t in task.currentUserTasks | orderBy: '-priority'" ng-hide="task.expired(t) || task.completed(t)" ng-mouseover="hovered = true" ng-mouseleave="hovered = false">
-						<a class="btn btn-default task-item-link" href="#" ng-click="task.Task.completeTask(t)">
+						<a class="btn btn-default task-item-link" href="#" ng-click="task.Task.completeTask(t)" data-toggle="tooltip" title="Click to mark as complete!">
 							<div class="col-xs-9 task-description-div">
 								<span class="task-item-description">{{t.description}}</span>
 							</div>
@@ -101,7 +101,7 @@
 				<!-- Expired Tasks -->
 				<ul class="task-list expired-tasks" ng-show="tab === 2">
 					<li class="task-item" ng-repeat="t in task.currentUserTasks" ng-hide="!task.expired(t) || task.completed(t)" ng-mouseover="hovered = true" ng-mouseleave="hovered = false">
-						<a class="btn btn-default task-item-link" href="#" ng-click="task.Task.completeTask(t)">
+						<a class="btn btn-default task-item-link" href="#" ng-click="task.Task.completeTask(t)" data-toggle="tooltip" title="Click to mark as complete!">
 							<div class="col-xs-9 task-description-div">
 								<span class="task-item-description">{{t.description}}</span>
 							</div>
