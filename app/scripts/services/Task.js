@@ -16,11 +16,12 @@
 				}
 			},
 			removeTask: function(task) {
-				alert('Are you sure you want to remove the task: "' + task.description + '"?');
-				tasks.$remove(task).then(function(ref) {
-					ref.key === task.$id;
-					console.log('The task "' + task.description + '" was removed successfully!');
-				});
+				if (confirm('Are you sure you want to remove the task: "' + task.description + '"?') === true) {
+					tasks.$remove(task).then(function(ref) {
+						ref.key === task.$id;
+						console.log('The task "' + task.description + '" was removed successfully!');
+					});
+				}
 			},
 			arrayMove: function(arr, fromIndex, toIndex) {
     		var element = arr[fromIndex];
@@ -32,8 +33,10 @@
 					task.completed = true;
 					tasks.$save(task);
 				} else {
-					task.completed = false;
-					tasks.$save(task);
+					if (confirm('Would you like to mark this task as active?') === true) {
+						task.completed = false;
+						tasks.$save(task);
+					}
 				}
 			},
 			getByUserId: function(userId) {
