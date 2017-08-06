@@ -63,6 +63,6 @@
 	}
 
 	angular
-		.module('blocItOff')
+		.module('nextTask')
 		.controller('SignUpModalCtrl', ['$uibModalInstance', 'User', '$cookies', SignUpModalCtrl]);
 })();

@@ -48,6 +48,6 @@
 	}
 
 	angular
-		.module('blocItOff')
+		.module('nextTask')
 		.factory('Task', ['$firebaseArray', Task]);
 })();

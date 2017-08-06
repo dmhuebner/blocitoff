@@ -61,6 +61,6 @@
 	}
 
 	angular
-		.module('blocItOff')
+		.module('nextTask')
 		.controller('HomeCtrl', ['$uibModal', '$cookies', HomeCtrl]);
 })();

@@ -16,6 +16,6 @@
 	}
 
 	angular
-		.module('blocItOff')
+		.module('nextTask')
 		.directive('taskComplete', ['$firebaseObject', taskComplete]);
 })();

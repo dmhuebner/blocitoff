@@ -31,6 +31,6 @@
 	}
 
 	angular
-		.module('blocItOff')
+		.module('nextTask')
 		.factory('User', ['$cookies', '$q', User]);
 })();

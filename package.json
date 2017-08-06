@@ -1,16 +1,16 @@
 {
-  "name": "bloc-frontend-project-starter",
+  "name": "NextTask",
   "version": "0.0.3",
-  "description": "Starter project for the Bloc Frontend Web Development",
+  "description": "To Do List SPA - Create To Do list items that expire if not completed in 7 days",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bloc/bloc-frontend-project-starter"
+    "url": "https://github.com/dmhuebner/nexttask"
   },
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
-  "author": "Bloc Inc",
+  "author": "David Huebner",
   "license": "ISC",
   "dependencies": {
     "hapi": "~7.5.0",

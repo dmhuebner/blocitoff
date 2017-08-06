@@ -148,6 +148,6 @@
 	}
 
 	angular
-		.module('blocItOff')
+		.module('nextTask')
 		.controller('TaskCtrl', ['Task', 'User', '$cookies', TaskCtrl]);
 })();

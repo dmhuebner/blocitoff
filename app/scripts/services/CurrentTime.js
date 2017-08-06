@@ -26,6 +26,6 @@
 // 	}
 //
 // 	angular
-// 		.module('blocItOff')
+// 		.module('nextTask')
 // 		.value('CurrentTime', [CurrentTime]);
 // })();
